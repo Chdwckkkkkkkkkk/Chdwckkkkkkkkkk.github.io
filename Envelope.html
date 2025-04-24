@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>mwehehehehe</title>
+
+  <style>
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600&display=swap");
+
+    * {
+      font-family: "Poppins", sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #ffc0cb; /* Pink background */
+    }
+
+    .wrapper {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 8%; /* Reduced by 20% */
+      background: #f5edd1;
+      box-shadow: 0 0 32px rgba(0, 0, 0, 0.2); /* Reduced by 20% */
+    }
+
+    .wrapper .envelope {
+      position: relative;
+      width: 340px; /* Reduced by 20% */
+      height: 184px; /* Reduced by 20% */
+    }
+
+    .wrapper .envelope::before {
+      position: absolute;
+      content: "";
+      z-index: 4;
+      top: 0;
+      border-top: 104px solid #ffc9de; /* Lighter pink, Reduced by 20% */
+      border-right: 170px solid transparent; /* Reduced by 20% */
+      border-left: 170px solid transparent; /* Reduced by 20% */
+      transform-origin: top;
+      transition: all 0.5s ease-in-out 0.7s;
+    }
+
+    .wrapper.open .envelope:before {
+      transform: rotateX(180deg);
+      z-index: 0;
+    }
+
+    .wrapper .envelope::after {
+      position: absolute;
+      content: "";
+      z-index: 4;
+      border-top: 104px solid transparent; /* Reduced by 20% */
+      border-right: 170px solid #ffc0cb; /* Lighter pink, Reduced by 20% */
+      border-bottom: 80px solid #ffc0cb; /* Reduced by 20% */
+      border-left: 170px solid #ffc0cb; /* Reduced by 20% */
+    }
+
+    .envelope .letter {
+      position: absolute;
+      width: 60%; /* Adjusted to fully display content */
+      height: 100%; /* Adjusted to fully display content */
+      background: #fff;
+      padding: 16px 8px; /* Reduced by 20% */
+      right: 50%; /* Centered horizontally */
+      bottom: 50%; /* Centered vertically */
+      transform: translate(50%, 50%); /* Centering transformation */
+      box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); /* Reduced by 20% */
+      transition: all 1s ease-in-out;
+      z-index: 2;
+    }
+
+    .wrapper.open .envelope .letter {
+      bottom: 60px; /* Adjusted for opening animation */
+      transform: translate(50%, 0) scale(1.5);
+      transition-delay: 1s;
+    }
+
+    .envelope .letter .text {
+      color: #222;
+      font-size: 8px; /* Reduced by 20% */
+    }
+
+    .heart {
+      position: absolute;
+      width: 16px; /* Reduced by 20% */
+      height: 16px; /* Reduced by 20% */
+      background: white; /* Changed to white */
+      top: 50%;
+      left: 50%;
+      z-index: 5;
+      transform: translate(-85%, -60%) rotate(45deg);
+      box-shadow: 0 0.8px 4.8px rgba(0, 0, 0, 0.2); /* Reduced by 20% */
+      cursor: pointer;
+      transition: all 0.5s ease-in-out 1s;
+      transform-origin: bottom;
+    }
+
+    .wrapper.open .heart {
+      transform: translate(-20%, -40%) rotate(230deg);
+      transition-delay: 0.4s;
+    }
+
+    .heart:before,
+    .heart:after {
+      position: absolute;
+      content: "";
+      width: 16px; /* Reduced by 20% */
+      height: 16px; /* Reduced by 20% */
+      background-color: white; /* Changed to white */
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -6px; /* Reduced by 20% */
+    }
+
+    .heart:after {
+      right: 6px; /* Reduced by 20% */
+    }
+
+    .float-text {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) scale(0);
+      top: -80%; /* Adjusted for height and Reduced by 20% */
+      display: flex;
+      align-items: center;
+      gap: 24px; /* Reduced by 20% */
+      z-index: 1;
+      transition: all 1s ease-in-out;
+    }
+
+    .wrapper.open .float-text {
+      transform: translateX(-50%) scale(1);
+      top: -80%; /* Adjusted for height and Reduced by 20% */
+      transition-delay: 1.2s;
+    }
+
+    .float-text .big-heart {
+      display: none; /* Hides the big heart */
+    }
+
+    .float-text span {
+      min-width: 48px; /* Reduced by 20% */
+      margin-left: 16px; /* Reduced by 20% */
+      color: white; /* Changed to white */
+      font-size: 40px; /* Reduced by 20% */
+      font-weight: 600;
+      white-space: nowrap;
+      text-shadow: -0.8px -0.8px 0 #000, 0.8px -0.8px 0 #000, -0.8px 0.8px 0 #000, 0.8px 0.8px 0 #000; /* Reduced by 20% */
+    }
+
+    .float-text span::before {
+      display: block;
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 32px;
+      color: #222;
+      text-shadow: none;
+    }
+
+    .float-text img {
+      width: 40px; /* You can adjust the size as needed */
+      height: auto;
+      margin-left: 8px; /* Space between text and image */
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <div class="envelope">
+    <div class="letter">
+      <div class="text">
+        <strong>Hi Baby,</strong>
+        <p>
+          Happy Birthday Babyyy, sana maenjoy mo itong day mo po.
+          Sorry dahil lagi tayong nagaaway dahil saakin po,
+          and Thankyou dahil lagi kapadin nandiyan kahit ganon wag ka po sana mapagod.
+          mwamwamwamwa mwamwa Happy Birthday Babyyyyyy
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="heart"></div>
+</div>
+
+<script>
+  const wrapper = document.querySelector(".wrapper");
+
+  wrapper.addEventListener("click", () => {
+    wrapper.classList.toggle("open");
+  });
+</script>
+</body>
+</html>

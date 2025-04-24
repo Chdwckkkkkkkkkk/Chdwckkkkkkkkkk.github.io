@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mouse Image Trail</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .grid {
+            display: grid;
+            height: 100vh;
+            width: 100%;
+            place-content: center;
+            background-color: pink;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .text-3xl {
+            font-size: 3rem;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .uppercase {
+            text-transform: uppercase;
+        }
+
+        .text-black {
+            color: black;
+        }
+
+        .pointer-events-none {
+            pointer-events: none;
+        }
+
+        .absolute {
+            position: absolute;
+        }
+
+        .left-0 {
+            left: 0;
+        }
+
+        .top-0 {
+            top: 0;
+        }
+
+        .h-48 {
+            height: 12rem;
+        }
+
+        .w-auto {
+            width: auto;
+        }
+
+        .rounded-xl {
+            border-radius: 1rem;
+        }
+
+        .border-2 {
+            border-width: 2px;
+        }
+
+        .border-black {
+            border-color: black;
+        }
+
+        .bg-neutral-900 {
+            background-color: #1a1a1a;
+        }
+
+        .object-cover {
+            object-fit: cover;
+        }
+
+        .opacity-0 {
+            opacity: 0;
+        }
+
+        .icon {
+            font-size: 3rem;
+            color: pink;
+        }
+
+    </style>
+</head>
+<body>
+<section class="grid h-screen w-full place-content-center bg-white">
+    <p class="flex items-center gap-2 text-3xl font-bold uppercase text-black">
+        <span></span>
+    </p>
+</section>
+<div class="mouse-trail"></div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const images = [
+            "1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg",
+            "6.jpg", "7.jpg", "8.jpg", "9.jpg", "10.jpg",
+            "11.jpg", "12.jpg", "13.jpg", "14.jpg", "15.jpg",
+            "16.jpg", "17.jpg", "18.jpg", "19.jpg", "20.jpg",
+        ];
+
+        const renderImageBuffer = 50;
+        const rotationRange = 25;
+        const mouseTrail = document.querySelector('.mouse-trail');
+        let lastRenderPosition = { x: 0, y: 0 };
+        let imageRenderCount = 0;
+
+        const handleMouseMove = (e) => {
+            const { clientX, clientY } = e;
+
+            const distance = calculateDistance(
+                clientX,
+                clientY,
+                lastRenderPosition.x,
+                lastRenderPosition.y
+            );
+
+            if (distance >= renderImageBuffer) {
+                lastRenderPosition = { x: clientX, y: clientY };
+                renderNextImage(clientX, clientY);
+            }
+        };
+
+        const calculateDistance = (x1, y1, x2, y2) => {
+            const deltaX = x2 - x1;
+            const deltaY = y2 - y1;
+
+            return Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+        };
+
+        const renderNextImage = (x, y) => {
+            const imageIndex = imageRenderCount % images.length;
+            const img = new Image();
+            img.src = images[imageIndex];
+            img.className = 'pointer-events-none absolute left-0 top-0 h-48 w-auto rounded-xl border-2 border-black bg-neutral-900 object-cover opacity-0';
+            img.style.top = `${y}px`;
+            img.style.left = `${x}px`;
+            img.style.zIndex = imageRenderCount.toString();
+
+            const rotation = Math.random() * rotationRange;
+            img.style.transform = `translate(-50%, -25%) scale(0.5) ${
+                imageIndex % 2 ? `rotate(${rotation}deg)` : `rotate(-${rotation}deg)`
+            }`;
+
+            mouseTrail.appendChild(img);
+            requestAnimationFrame(() => {
+                img.style.opacity = 1;
+                img.style.transform = `translate(-50%, -50%) scale(1) ${
+                    imageIndex % 2 ? `rotate(-${rotation}deg)` : `rotate(${rotation}deg)`
+                }`;
+
+                setTimeout(() => {
+                    img.style.opacity = 0;
+                    setTimeout(() => {
+                        img.remove();
+                    }, 500);
+                }, 5000);
+            });
+
+            imageRenderCount++;
+        };
+
+        document.addEventListener('mousemove', handleMouseMove);
+    });
+</script>
+</body>
+</html>
